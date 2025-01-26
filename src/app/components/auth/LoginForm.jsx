@@ -3,23 +3,23 @@ import { useForm } from "react-hook-form";
 
 import Field from "../common/Field";
 import { useRouter } from "next/navigation";
+import { UseAuth } from "@/app/hooks/UseAuth";
 
 const LoginForm = () => {
+  const { setAuth } = UseAuth();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
   const router = useRouter();
 
-  const onSubmit = (data) => {
-    // You can make API call here to validate the credentials
-    // For demonstration purposes, we will simulate a successful login
-    if (data.email === "faisal@gmail.com" && data.password === "123456") {
-      router.push("/");
-    } else {
-      alert("Invalid credentials");
-    }
+  const onSubmit = (formData) => {
+    const user = { ...formData };
+    setAuth({ user });
+    router.push("/");
   };
 
   return (
@@ -39,6 +39,8 @@ const LoginForm = () => {
           name="email"
           type="email"
           id="email"
+          autoComplete="off"
+          placeholder="Email"
         />
         {errors.email && (
           <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
@@ -61,6 +63,8 @@ const LoginForm = () => {
           name="password"
           type="password"
           id="password"
+          autoComplete="off"
+          placeholder="Password"
         />
         {errors.password && (
           <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>

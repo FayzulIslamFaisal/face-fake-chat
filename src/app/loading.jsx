@@ -1,4 +1,8 @@
 export default function Loading() {
   // Or a custom loading skeleton component
-  return <p>Loading...</p>;
+  return (
+    <div className="container mx-auto py-[100px]">
+      <h1 className=" text-center">Loading...</h1>;
+    </div>
+  );
 }
