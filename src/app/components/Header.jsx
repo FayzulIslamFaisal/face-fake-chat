@@ -1,7 +1,10 @@
+"use client";
 import Link from "next/link";
 import LogOut from "./auth/LogOut";
+import { UseAuth } from "../hooks/UseAuth";
 
 const Header = () => {
+  const { auth } = UseAuth();
   return (
     <nav className="sticky top-0 z-50 border-b border-[#3F3F3F] bg-[#1E1F24] py-1">
       <div className="container flex flex-col items-center justify-between gap-6 sm:flex-row">
@@ -23,10 +26,12 @@ const Header = () => {
           <LogOut />
 
           <button className="flex-center !ml-8 gap-3">
-            <span className="text-lg font-medium lg:text-xl">Faisal</span>
+            <span className="text-lg font-medium lg:text-xl">
+              {auth?.user?.lastName}
+            </span>
             <img
               className="max-h-[42px] max-w-[42px] lg:max-h-[44px] lg:max-w-[44px]"
-              src="/images/avatars/avatar.png"
+              src={auth?.user?.avatar}
               alt=""
             />
           </button>

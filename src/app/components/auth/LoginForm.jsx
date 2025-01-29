@@ -20,12 +20,14 @@ const LoginForm = () => {
 
   const onSubmit = async (formData) => {
     try {
-      console.log("NEXT_PUBLIC_BASE_URL:", process.env.NEXT_PUBLIC_BASE_URL);
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_BASE_URL}/auth/login`,
-        formData
+        formData,
+        {
+          headers: { "Content-Type": "application/json" },
+        }
       );
-      console.log(response.data);
+
       if (response?.status === 200) {
         const { user, token } = response.data;
         if (token) {
